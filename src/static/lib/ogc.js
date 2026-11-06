@@ -526,9 +526,10 @@ var ogc = (function () {
       typeName: $(xml).find("LayerDescription Query").attr("typeName"),
     };
   };
-  var _getWFSUrl = function (wmsUrl, layerid) {
+  var _getWFSUrl = async function (wmsUrl, layerid, serverType) {
     var descLayerParams =
       "SERVICE=WMS&VERSION=1.1.1&REQUEST=DescribeLayer&LAYERS=" + layerid;
+    if (serverType === "qgis") descLayerParams += "&SLD_VERSION=1.1.0";
     var descLayerUrl = wmsUrl.replace(/[?&]$/, "");
     descLayerUrl =
       descLayerUrl.indexOf("?") === -1
@@ -582,11 +583,11 @@ var ogc = (function () {
       _getStyles(url, layerid);
     },
 
-    getWfsInfosFromWms(url, layerid) {
-      return _getWFSUrl(url, layerid);
+    getWfsInfosFromWms(url, layerid, serverType) {
+      return _getWFSUrl(url, layerid, serverType);
     },
-    getWfsFeaturesFromWms(url, layerid) {
-      _getWFSUrl(url, layerid)
+    getWfsFeaturesFromWms(url, layerid, serverType) {
+      _getWFSUrl(url, layerid, serverType)
         .then(({ describeLayer }) => describeLayer.wfs_url)
         .then((wfs_url) => {
           let onSuccess = (data) => {

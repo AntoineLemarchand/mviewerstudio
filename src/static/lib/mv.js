@@ -850,7 +850,7 @@ var mv = (function () {
           });
         }
         ogc
-          .getWfsInfosFromWms(layer.url, layerid)
+          .getWfsInfosFromWms(layer.url, layerid, $("#frm-servertype").val())
           .then(({ describeLayer }) => {
             ogc.getFieldsFromWMS(describeLayer, layerid, themeid);
             return describeLayer;
