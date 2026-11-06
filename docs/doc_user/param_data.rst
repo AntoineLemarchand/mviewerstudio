@@ -106,7 +106,7 @@ Vous pouvez chercher un jeu de données dans un catalogue (ex. Région Bretagne)
               :alt: Chercher une donnée
               :align: center
 
-- :guilabel:`mode avancé` en choisissant le ``Type de serveur`` des données à ajouter (``GeoServer`` par défaut, ``OGC (Filter Encoding)`` ou ``QGIS Server``). Cette valeur s'applique à toutes les données sélectionnées. Elle peut ensuite être modifiée donnée par donnée dans l'onglet Général.
+- :guilabel:`mode avancé` en choisissant le ``Type de serveur`` des données à ajouter (``GeoServer`` par défaut, ``OGC (Filter Encoding)`` ou ``QGIS Server``). Cette valeur s'applique à toutes les données sélectionnées. Elle peut ensuite être modifiée donnée par donnée dans l'onglet Général. Ce type peut être modifié par couche dans le menu ``Paramètre de la donnée``.
 
 Ajouter une donnée depuis des paramètres
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -166,7 +166,7 @@ L'onglet général recense les principales options de la donnée.
 * ``Afficher le panneau de la couche déplié au démarrage`` : le pannneau d'affichage de la donnée sera déplié au démarrage. Il contient filtre, opacité, métadonnée...
 * ``Styles disponibles`` : choix du·des style·s de la donnée dans notre application. Possibilité d'éditer le libellé du style.
 * ``Libellé de la liste des styles`` : titre de la liste de sélection des styles.
-* ``Type de serveur`` :guilabel:`mode avancé` : type du serveur cartographique qui diffuse la donnée WMS (``GeoServer`` par défaut, ``OGC (Filter Encoding)`` pour MapServer, ``QGIS Server``). Cette valeur détermine la syntaxe du filtre de l'onglet filtre (voir ci-dessous). Elle est enregistrée dans l'attribut ``servertype`` de la donnée.
+* ``Type de serveur`` :guilabel:`mode avancé` : type du serveur cartographique qui diffuse la donnée WMS/WFS (``GeoServer`` par défaut, ``OGC (Filter Encoding)`` pour MapServer, ``QGIS Server``). Cette valeur détermine la syntaxe du filtre de l'onglet filtre (voir ci-dessous). Elle est enregistrée dans l'attribut ``servertype`` de la donnée.
 
 Onglet Interrogation
 ~~~~~~~~~~~~~~~~~~~~~
@@ -214,7 +214,7 @@ Syntaxe du filtre selon le type de serveur :
 
 * ``GeoServer`` : filtre CQL. Exemple : ``code = '35'``.
 * ``QGIS Server`` : expression QGIS, avec les noms de champs entre guillemets doubles et un espace autour de chaque symbole. Le nom de la couche en préfixe (``couche:``) est facultatif, mviewer l'ajoute au besoin. Exemples : ``"code" = '35'`` ou ``"code" IN ( '22' , '29' , '35' , '56' )``.
-* ``OGC (Filter Encoding)`` : filtre XML OGC, sans préfixe. Exemple :
+* ``OGC (Filter Encoding)`` : filtre XML OGC, sans préfixe, il n'est pas nécessaire d'encoder la donnée. Exemple :
 
 .. code-block:: xml
    <Filter xmlns="http://www.opengis.net/ogc"><PropertyIsEqualTo><PropertyName>NAME</PropertyName><Literal>Paris</Literal></PropertyIsEqualTo></Filter>
