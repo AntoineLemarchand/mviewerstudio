@@ -522,8 +522,12 @@ var ogc = (function () {
 
   var _describeLayerParse = function (xml, layerid) {
     return {
-      wfs_url: $(xml).find("LayerDescription").attr("wfs").split("?")[0],
-      typeName: $(xml).find("LayerDescription Query").attr("typeName"),
+      wfs_url:
+        $(xml).find("LayerDescription").attr("wfs")?.split("?")[0] ||
+        $(xml).find("se\\:OnlineResource, OnlineResource").attr("xlink:href"),
+      typeName:
+        $(xml).find("LayerDescription Query").attr("typeName") ||
+        $(xml).find("se\\:FeatureTypeName, FeatureTypeName").text(),
     };
   };
   var _getWFSUrl = async function (wmsUrl, layerid, serverType) {
@@ -636,6 +640,10 @@ var ogc = (function () {
           onSuccess(data);
         })
         .catch((error) => {
+          if (!props?.OUTPUTFORMAT) {
+            const geojson = "application/json; subtype=geojson";
+            return ogc.getFeatures(url, { ...props, OUTPUTFORMAT: geojson }, onSuccess);
+          }
           console.error("WFS GetFeature request failed", {
             url: stringUrl,
             error: error,
